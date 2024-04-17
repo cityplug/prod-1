@@ -1,0 +1,65 @@
+---
+version: '3.4'
+services:
+  pihole:
+    container_name: pihole
+    hostname: pihole.copilot
+    image: pihole/pihole:latest
+    environment:
+      WEBTHEME: default-dark
+      TZ: Europe/London
+      WEBPASSWORD: Szxs234.
+    volumes:
+      - /opt/appdata/pihole:/etc/pihole/
+      - /opt/appdata/pihole/dnsmasq:/etc/dnsmasq.d/
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
+      - 80:80/tcp
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
+    networks:
+      - pihole.internal
+
+  speedtest-tracker:
+    container_name: speedtest-tracker
+    image: 'ghcr.io/alexjustesen/speedtest-tracker:latest'
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - DB_CONNECTION=mysql
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=speedtest_tracker
+      - DB_USERNAME=focal
+      - DB_PASSWORD=T0day.T1jan333
+    volumes:
+      - /opt/appdata/speedtest_tracker:/config
+      - /etc/localtime:/etc/localtime:ro
+      - /opt/appdata/speedtest_tracker/ssl:/etc/ssl/web
+    ports:
+      - '8982:80'
+      - '8943:443'
+    restart: unless-stopped
+    depends_on:
+      - db
+  db:
+    container_name: speedtest-db
+    image: mariadb:10
+    environment:
+      - MARIADB_DATABASE=speedtest_tracker
+      - MARIADB_USER=focal
+      - MARIADB_PASSWORD=T0day.T1jan333
+      - MARIADB_RANDOM_ROOT_PASSWORD=true
+    volumes:
+      - /opt/appdata/speedtest_tracker/db:/var/lib/mysql
+    restart: always
+    networks:
+      - speedtest.internal
+
+networks:
+  pihole.internal:
+    external: true
+  speedtest.internal:
+    external: true
