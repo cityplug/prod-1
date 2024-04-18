@@ -1,8 +1,12 @@
 ---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/latest/configs/services
+
 - Infrastructure and Data:
     - SpeedTest:
-        icon: speedtest.png
-        description: Speed Test
+        icon: si-speedtest
+        href: "{{HOMEPAGE_VAR_PROXMOX_URL}}"
+        description: Network Speed
         siteMonitor: "{{HOMEPAGE_VAR_SPEEDTEST_URL}}"
         widget:
           type: speedtest

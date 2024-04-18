@@ -1,10 +1,13 @@
 ---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/latest/configs/settings
+
 title: Copilot Dashboard
 headerStyle: underlined
 
 background:
   image: https://cdnb.artstation.com/p/assets/images/images/006/897/659/large/mikael-gustafsson-wallpaper-mikael-gustafsson.jpg
-  blur:
+  blur: sm
   saturate: 100
   brightness: 50
   opacity: 100
@@ -14,7 +17,6 @@ color: slate
 useEqualHeights: true
 
 iconStyle: theme
-statusStyle: basic
 hideVersion: true
 hideErrors: true
 showStats: true
@@ -22,7 +24,7 @@ quicklaunch:
   searchDescriptions: true
   hideInternetSearch: true
   hideVisitURL: true
-logpath: /opt/appdata/homepage/
+logpath: /opt/homepage-prod-1/appdata/
 
 fiveColumns: true
 layout:
