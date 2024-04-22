@@ -5,7 +5,7 @@
 - Infrastructure and Data:
     - SpeedTest:
         icon: si-speedtest
-        href: "{{HOMEPAGE_VAR_PROXMOX_URL}}"
+        href: "{{HOMEPAGE_VAR_SPEEDTEST_URL}}"
         description: Network Speed
         siteMonitor: "{{HOMEPAGE_VAR_SPEEDTEST_URL}}"
         widget:
@@ -109,7 +109,6 @@
         href: "{{HOMEPAGE_VAR_PIHOLE_URL}}"
         description: DNS Server
         siteMonitor: "{{HOMEPAGE_VAR_PIHOLE_URL}}"
-        container: pihole
         widget:
           type: pihole
           url: "{{HOMEPAGE_VAR_PIHOLE_URL}}"
