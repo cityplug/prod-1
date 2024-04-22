@@ -25,10 +25,11 @@ cd /opt/homepage-prod-1/ && docker-compose up -d
 docker ps
 docker-compose logs -f
 
-# --- Build Homepage
-docker stop homepage
-rm -rf /opt/appdata/homepage/
-mv /opt/homepage/config /env/appdata/homepage
-docker start homepage
 #--------------------------------------------------------------------------------
 reboot
+
+# --- Build Homepage
+#docker stop homepage
+#rm -rf /opt/appdata/homepage/
+#mv /opt/homepage/config /env/appdata/homepage
+#docker start homepage
