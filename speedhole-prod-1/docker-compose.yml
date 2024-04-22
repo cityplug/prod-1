@@ -19,12 +19,10 @@ services:
     cap_add:
       - NET_ADMIN
     restart: unless-stopped
-    networks:
-      - pihole.internal
 
   speedtest-tracker:
     container_name: speedtest-tracker
-    image: 'ghcr.io/alexjustesen/speedtest-tracker:latest'
+    image: lscr.io/linuxserver/speedtest-tracker:latest
     environment:
       - PUID=1000
       - PGID=1000
@@ -35,31 +33,22 @@ services:
       - DB_USERNAME=focal
       - DB_PASSWORD=T0day.T1jan333
     volumes:
-      - /opt/appdata/speedtest_tracker:/config
-      - /etc/localtime:/etc/localtime:ro
-      - /opt/appdata/speedtest_tracker/ssl:/etc/ssl/web
+      - /opt/speedhole-prod-1/appdata/speedtest:/config
+      - /opt/speedhole-prod-1/appdata/speedtest/ssl:/config/keys
     ports:
-      - '8982:80'
-      - '8943:443'
+      - 8080:80
+      - 8443:443
     restart: unless-stopped
     depends_on:
       - db
   db:
     container_name: speedtest-db
     image: mariadb:10
+    restart: always
     environment:
       - MARIADB_DATABASE=speedtest_tracker
       - MARIADB_USER=focal
       - MARIADB_PASSWORD=T0day.T1jan333
       - MARIADB_RANDOM_ROOT_PASSWORD=true
     volumes:
-      - /opt/appdata/speedtest_tracker/db:/var/lib/mysql
-    restart: always
-    networks:
-      - speedtest.internal
-
-networks:
-  pihole.internal:
-    external: true
-  speedtest.internal:
-    external: true
+      - /opt/speedhole-prod-1/appdata/speedtest/db:/var/lib/mysql
