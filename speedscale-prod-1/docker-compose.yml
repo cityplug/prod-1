@@ -8,10 +8,11 @@ services:
     environment:
       WEBTHEME: default-dark
       TZ: Europe/London
-      WEBPASSWORD: Szxs234.
+      WEBPASSWORD: $WEBPASSWORD
     volumes:
       - /opt/appdata/pihole:/etc/pihole/
       - /opt/appdata/pihole/dnsmasq:/etc/dnsmasq.d/
+    env_file: /opt/speedhole-prod-1/.env
     ports:
       - 53:53/tcp
       - 53:53/udp
@@ -19,36 +20,49 @@ services:
     cap_add:
       - NET_ADMIN
     restart: unless-stopped
+    networks:
+      - pihole
 
   speedtest-tracker:
     container_name: speedtest-tracker
     image: lscr.io/linuxserver/speedtest-tracker:latest
     environment:
-      - PUID=1000
-      - PGID=1000
-      - DB_CONNECTION=mysql
-      - DB_HOST=db
-      - DB_PORT=3306
-      - DB_DATABASE=speedtest_tracker
-      - DB_USERNAME=focal
-      - DB_PASSWORD=T0day.T1jan333
+      PUID: $PUID
+      PGID: $PGID
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: $DB_PORT
+      DB_DATABASE: $DB_DATABASE
+      DB_USERNAME: $DB_USERNAME
+      DB_PASSWORD: $DB_PASSWORD
     volumes:
       - /opt/speedhole-prod-1/appdata/speedtest:/config
       - /opt/speedhole-prod-1/appdata/speedtest/ssl:/config/keys
+    env_file: /opt/speedhole-prod-1/.env
     ports:
       - 8080:80
       - 8443:443
     restart: unless-stopped
     depends_on:
       - db
+    networks:
+      - speedtest
   db:
     container_name: speedtest-db
     image: mariadb:10
     restart: always
     environment:
-      - MARIADB_DATABASE=speedtest_tracker
-      - MARIADB_USER=focal
-      - MARIADB_PASSWORD=T0day.T1jan333
-      - MARIADB_RANDOM_ROOT_PASSWORD=true
+      MARIADB_DATABASE: $MARIADB_DATABASE
+      MARIADB_USER: $MARIADB_USER
+      MARIADB_PASSWORD: $MARIADB_PASSWORD
+      MARIADB_RANDOM_ROOT_PASSWORD: $MARIADB_RANDOM_ROOT_PASSWORD
     volumes:
       - /opt/speedhole-prod-1/appdata/speedtest/db:/var/lib/mysql
+    env_file: /opt/speedhole-prod-1/.env
+    networks:
+      - speedtest
+networks:
+  pihole:
+    external: true
+  speedtest:
+    external: true

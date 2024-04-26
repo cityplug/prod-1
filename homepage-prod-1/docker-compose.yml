@@ -10,7 +10,7 @@ services:
     volumes:
       - /opt/homepage-prod-1/appdata:/app/config
       - /var/run/docker.sock:/var/run/docker.sock:ro
-    env_file: /root/.env
+    env_file: /opt/homepage-prod-1/.env
 #    labels:
 #      - "traefik.enable=true"
 #      - "traefik.http.routers.homepage.rule=Host(`homepage.cityplug.io`)"
