@@ -14,9 +14,9 @@ services:
       DB_USERNAME: $DB_USERNAME
       DB_PASSWORD: $DB_PASSWORD
     volumes:
-      - /opt/speedhole-prod-1/appdata/speedtest:/config
-      - /opt/speedhole-prod-1/appdata/speedtest/ssl:/config/keys
-    env_file: /opt/speedhole-prod-1/.env
+      - /opt/speedscale-prod-1/appdata/speedtest:/config
+      - /opt/speedscale-prod-1/appdata/speedtest/ssl:/config/keys
+    env_file: /opt/speedscale-prod-1/.env
     ports:
       - 8443:443
     restart: unless-stopped
@@ -34,8 +34,8 @@ services:
       MARIADB_PASSWORD: $MARIADB_PASSWORD
       MARIADB_RANDOM_ROOT_PASSWORD: $MARIADB_RANDOM_ROOT_PASSWORD
     volumes:
-      - /opt/speedhole-prod-1/appdata/speedtest/db:/var/lib/mysql
-    env_file: /opt/speedhole-prod-1/.env
+      - /opt/speedscale-prod-1/appdata/speedtest/db:/var/lib/mysql
+    env_file: /opt/speedscale-prod-1/.env
     networks:
       - speedtest
 networks:

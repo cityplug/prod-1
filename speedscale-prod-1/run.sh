@@ -7,7 +7,7 @@
 #> cd /opt && git clone https://github.com/cityplug/prod-1 && mv /opt/prod-1/speedscale-prod-1 /opt/speedscale-prod-1
 #> chmod +x /opt/speedscale-prod-1/* && cd /opt/speedscale-prod-1 && ./run.sh
 
-# --- Install Docker Official GPG key to Apt sources:
+# --- Install Docker Official GPG key to Apt sources
 install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
 chmod a+r /etc/apt/keyrings/docker.asc
