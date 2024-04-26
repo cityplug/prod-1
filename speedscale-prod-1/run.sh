@@ -35,7 +35,7 @@ docker-compose logs -f
 
 # --- Install Tailscale
 curl -fsSL https://tailscale.com/install.sh | sh
-tailscale up --advertise-routes=192.168.31.0/24 --advertise-exit-node
+tailscale up --advertise-routes=192.168.31.0/24
 #--------------------------------------------------------------------------------
 reboot
 
