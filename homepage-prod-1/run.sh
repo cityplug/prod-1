@@ -20,7 +20,7 @@ apt-get update && apt-get install docker-ce docker-ce-cli containerd.io docker-b
 
 # --- Addons
 rm -rf /etc/update-motd.d/* && rm -rf /etc/motd && 
-wget https://raw.githubusercontent.com/cityplug/prod-1/main/homepage-prod-1/10-uname -O /etc/update-motd.d/10-uname && chmod +x /etc/update-motd.d/10-uname
+wget https://raw.githubusercontent.com/cityplug/prod-1/main/10-uname -O /etc/update-motd.d/10-uname && chmod +x /etc/update-motd.d/10-uname
 
 echo "
 net.ipv4.ip_forward = 1
