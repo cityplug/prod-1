@@ -26,8 +26,6 @@ echo "
 net.ipv4.ip_forward = 1
 net.ipv6.conf.all.forwarding = 1" >> /etc/sysctl.conf
 
-adduser focal
-usermod -aG docker focal
 #--
 systemctl enable docker 
 docker-compose --version && docker --version
@@ -42,6 +40,3 @@ reboot
 #rm -rf /opt/appdata/homepage/
 #mv /opt/homepage/config /env/appdata/homepage
 #docker start homepage
-
-# --- Install Docker & Docker Compose 
-#curl -sSL https://get.docker.com/ | sh && apt install docker-compose -y
