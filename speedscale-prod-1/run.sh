@@ -33,6 +33,8 @@ docker network create speedtest
 cd /opt/speedscale-prod-1/ && docker-compose up -d && docker ps
 docker-compose logs -f
 
+sleep 10 && poweroff
+
 # --- Install Tailscale
 curl -fsSL https://tailscale.com/install.sh | sh
 tailscale up --advertise-routes=192.168.31.0/24
