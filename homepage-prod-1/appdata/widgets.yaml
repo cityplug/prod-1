@@ -1,0 +1,22 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/latest/configs/service-widgets
+
+- logo:
+    icon: si-dask
+- resources:
+    cpu: true
+    memory: true
+    disk: /
+    cputemp: true
+    uptime: true
+- search:
+    provider: google
+    target: _blank
+- datetime:
+    text_size: md
+    locale: gb
+    format:
+      dateStyle: short
+      timeStyle: short
+      hour12: true

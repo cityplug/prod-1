@@ -1,0 +1,53 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/latest/configs/bookmarks
+
+- Repositories:
+    - Homelab:
+        - abbr: GH
+          href: https://github.com/cityplug/prod-1
+          icon: si-github-#FFFFFF
+    - Cheat-Sheets:
+        - abbr: CS
+          href: https://github.com/christianlempa/cheat-sheets
+          icon: si-github-#FFFFFF
+    - JimsGarage:
+        - abbr: JG
+          href: https://github.com/JamesTurland/JimsGarage
+          icon: si-github-#FFFFFF
+
+- Short Cuts:
+    - Youtube:
+        - abbr: YT
+          href: https://youtube.com/
+          icon: youtube.png
+    - Youtube Music:
+        - abbr: YTM
+          href: https://music.youtube.com/
+          icon: youtube-music
+    - Anydesk:
+        - abbr: AD
+          href: https://anydesk.com/uk/downloads/thank-you?dv=win_exe
+          icon: https://static-00.iconduck.com/assets.00/anydesk-icon-2048x2048-1tqcckxw.png
+    - Journal:
+        - abbr: J
+          href: https://cityplug-my.sharepoint.com/:x:/r/personal/seni_cityplug_co_uk/_layouts/15/Doc.aspx?sourcedoc=%7B8C9766B7-10F4-41FA-BAA4-D4888C0C74FC%7D&file=Journal.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1&login_hint=Seni%40cityplug.co.uk&ct=1708636859635&wdOrigin=OFFICECOM-WEB.MAIN.REC&cid=f51c611f-fa67-4b91-a4d0-88595fbc94db&wdPreviousSessionSrc=HarmonyWeb&wdPreviousSession=e3e4c720-4039-40a5-ac98-5eef8dc07840
+          icon: google-sheets.png
+
+- Links:
+    - Cloudflare:
+        - abbr: CF
+          href: https://dash.cloudflare.com/
+          icon: cloudflare.png
+    - Tailscale:
+        - abbr: TS
+          href: https://login.tailscale.com/admin/machines
+          icon: tailscale-light.png
+    - O365:
+        - abbr: CF
+          href: https://office.com/?auth=2&home=1
+          icon: microsoft-office.png
+    - Soccer Streams:
+        - abbr: CF
+          href: https://soccerlive.app/
+          icon: si-fifa

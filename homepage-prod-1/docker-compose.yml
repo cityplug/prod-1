@@ -1,0 +1,22 @@
+---
+services:
+  homepage:
+    container_name: homepage
+    hostname: homepage
+    image: ghcr.io/gethomepage/homepage:latest
+    environment:
+      PUID: $PUID
+      PGID: $PGID
+    volumes:
+      - /opt/homepage-prod-1/appdata:/app/config
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    env_file: /opt/homepage-prod-1/.env
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.homepage.rule=Host(`app.cityplug.io`)"
+#      - "traefik.http.routers.homepage.entrypoints=websecure"
+#      - "traefik.http.routers.homepage.tls=true"
+#      - "traefik.http.routers.homepage.tls.certresolver=thinkstation"
+    ports:
+      - 85:3000
+    restart: always
