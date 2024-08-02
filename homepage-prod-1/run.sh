@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Debian 8GB/1Core/512MB - (homepage-prod-1) setup script - pve thincentre {1000}
+# Debian 8GB/1Core/512MB - (homepage-prod-1) setup script - pve thinkstation {1000}
 
 #> systemctl mask ssh.socket && systemctl mask sshd.socket && systemctl disable sshd && systemctl enable ssh && sed -i '15i\Port 4792\n' /etc/ssh/sshd_config
 #> apt update -y && apt install git curl gnupg -y && apt full-upgrade -y && apt autoremove && reboot
@@ -21,10 +21,6 @@ apt-get update && apt-get install docker-ce docker-ce-cli containerd.io docker-b
 # --- Addons
 rm -rf /etc/update-motd.d/* && rm -rf /etc/motd && 
 wget https://raw.githubusercontent.com/cityplug/prod-1/main/10-uname -O /etc/update-motd.d/10-uname && chmod +x /etc/update-motd.d/10-uname
-
-#echo "
-#net.ipv4.ip_forward = 1
-#net.ipv6.conf.all.forwarding = 1" >> /etc/sysctl.conf
 
 #--
 systemctl enable docker 
