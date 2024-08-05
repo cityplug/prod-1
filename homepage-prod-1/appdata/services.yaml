@@ -59,6 +59,12 @@
           url: "{{HOMEPAGE_VAR_UNIFI_NETWORK_URL}}"
           username: "{{HOMEPAGE_VAR_UNIFI_NETWORK_USERNAME}}"
           password: "{{HOMEPAGE_VAR_UNIFI_NETWORK_PASSWORD}}"
+    - Traefik:
+        icon: traefik.png 
+        href: "{{HOMEPAGE_VAR_TRAEFIK_URL}}"
+        description: ...
+        siteMonitor:
+        container: traefik
     - Portainer:
         icon: portainer.png 
         href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
