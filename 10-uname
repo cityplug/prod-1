@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Define ANSI escape codes for colors
+GREEN="\033[0;32m"
+CYAN="\033[0;36m"
+ORANGE="\033[0;33m"  # Approximating orange as yellow
+RESET="\033[0m"  # Reset color
+
 upSeconds="$(/usr/bin/cut -d. -f1 /proc/uptime)"
 secs=$((${upSeconds}%60))
 mins=$((${upSeconds}/60%60))
@@ -10,15 +16,20 @@ UPTIME=`printf "%d days, %02dh%02dm%02ds" "$days" "$hours" "$mins" "$secs"`
 # get the load averages
 read one five fifteen rest < /proc/loadavg
 
-echo "$(tput setaf 2)
-Date...............: `date +"%A, %e %B %Y, %r"`
-System.............: `uname -nsrmo`
-IP Addresses.......: `ip a | grep glo | awk '{print $2}' | head -1 | cut -f1 -d/` and `wget -q -O - http://icanhazip.com/ | tail` tailscale `tailscale ip -4`
-Uptime.............: ${UPTIME}
-Temperature........: `vcgencmd measure_temp | grep  -o -E '[[:digit:]].*'`
+# Print system information with colors
+echo -e "
+${GREEN}Date...............:${RESET} ${CYAN}`date +"%A, %e %B %Y, %r"` ${RESET}
+${GREEN}System.............:${RESET} ${CYAN}`uname -nsrmo`${RESET}
+${GREEN}IP Addresses.......:${RESET} ${CYAN}`ip a | grep glo | awk '{print $2}' | head -1 | cut -f1 -d/` and `wget -q -O - http://icanhazip.com/ | tail`${RESET}
+${GREEN}Tailscale IP.......:${RESET} ${CYAN}`tailscale ip -4`${RESET}
+${GREEN}Uptime.............:${RESET} ${CYAN}${UPTIME}${RESET}
+"
 
-$(tput sgr0)"
+# Display disk usage
 df -hT /
 echo
-docker ps
+
+# Print Docker section in orange (heading and output)
+echo -e "${ORANGE}Docker Containers:${RESET}"
+docker ps --no-trunc --format "table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Ports}}" | awk '{print "'$ORANGE'" $0 "'$RESET'"}'
 echo
