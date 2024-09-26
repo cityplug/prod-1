@@ -31,5 +31,5 @@ echo
 
 # Print Docker section in orange (heading and output)
 echo -e "${ORANGE}Docker Containers:${RESET}"
-docker ps --no-trunc --format "table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Ports}}" | awk '{print "'$ORANGE'" $0 "'$RESET'"}'
+docker ps --no-trunc --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}" | awk '{print "'$ORANGE'" $0 "'$RESET'"}'
 echo

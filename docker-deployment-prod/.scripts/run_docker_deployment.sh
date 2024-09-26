@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Debian 8GB/1Core/512MB - (UDMS-prod-1) setup script - pve thinkstation {102}
+# Debian 8GB/1Core/512MB - (ddm-prod) setup script - pve thinkstation {2000}
 
 #> systemctl mask ssh.socket && systemctl mask sshd.socket && systemctl disable sshd && systemctl enable ssh && sed -i '15i\Port 4792\n' /etc/ssh/sshd_config
 #> apt update -y && apt install git ufw curl ca-certificates gnupg -y && apt full-upgrade -y && apt autoremove && reboot
-#> cd /opt && git clone https://github.com/cityplug/prod-1 && mv /opt/prod-1/ddm-prod /opt/ddm
-#> chmod +x /opt/ddm/* && cd /opt/ddm && ./run_ddm.sh
+#> cd /opt && git clone https://github.com/cityplug/prod-1 && mv /opt/prod-1/docker-deployment-prod /opt/thinkstation && rm -r /opt/prod-1/
+#> chmod +x /opt/thinkstation/* && cd /opt/thinkstation && ./run_docker_deployment.sh
 
 # --- Install Docker Official GPG key to Apt sources:
 read -p "Would you like to install Docker? (Y/N): " response
@@ -48,6 +48,11 @@ fi
 rm -r /etc/update-motd.d/* && rm -r /etc/motd && 
 wget https://raw.githubusercontent.com/cityplug/prod-1/main/10-uname -O /etc/update-motd.d/10-uname && chmod +x /etc/update-motd.d/10-uname
 
+echo "
+net.ipv4.ip_forward = 1
+net.ipv6.conf.all.forwarding = 1" >> /etc/sysctl.conf
+sysctl -p
+
 # --- Docker Build Services
 systemctl enable docker 
 docker-compose --version && docker --version
@@ -65,7 +70,7 @@ else
   echo "Creating backend network..."
   docker network create backend
 fi
-docker run -d -p 9000:9443 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v /opt/appdata/portainer:/data portainer/portainer-ce:2.21.2-alpine
+docker run -d -p 9000:9443 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v /opt/thinkstation/appdata/portainer:/data portainer/portainer-ce:2.21.2-alpine
 docker compose up -d && docker ps
 docker-compose logs -f
 
@@ -74,10 +79,13 @@ adduser focal
 groupadd ssh-users
 usermod -aG ssh-users,docker focal
 sed -i '15i\AllowGroups ssh-users\n' /etc/ssh/sshd_config
+ufw allow from 10.1.1.0/24 to any
 ufw deny 22
 ufw allow 4792
-ufw default allow incoming
-ufw default deny outgoing
+ufw default deny incoming
+ufw default allow outgoing
+ufw allow 85 #homer
+ufw allow 9000 #portainer
 ufw logging on
 read -p "Would you like to enable UFW? (Y/N): " response
 if [[ "$response" == "y" ]]; then
@@ -89,6 +97,11 @@ else
     echo "Invalid response. Please enter Y or N."
 fi
 ufw status verbose
+
+# --- Install Tailscale
+curl -fsSL https://tailscale.com/install.sh | sh
+tailscale up --advertise-routes=192.168.41.0/24 --advertise-exit-node
+
 #--------------------------------------------------------------------------------
 sleep 10
 reboot
